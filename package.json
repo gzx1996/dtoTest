@@ -1,0 +1,11 @@
+{
+  "name": "dto4js",
+  "version": "1.0.0",
+  "description": "dto for js",
+  "main": "util/checkDto.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "norman",
+  "license": "ISC"
+}
