@@ -1,5 +1,5 @@
 {
-  "name": "dto4js",
+  "name": "@norman/dto4js",
   "version": "1.0.1",
   "description": "dto for js",
   "main": "util/checkDto.js",
