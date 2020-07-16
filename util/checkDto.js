@@ -1,3 +1,5 @@
+const path = require('path')
+
 /**
  * @param {string} dto 定义的dto文件名 'user.create'
  * @param {object} data 需要校验的入参
@@ -10,7 +12,8 @@ const checkDto = (dto, data, type) => {
 
 const findDtoJSON = (str, type) => {
     const arr = str.split('.');
-    let fp = '../dto/' + arr.join('/') + '.dto.js'
+    let fp = path.resolve('.', './dto/' + arr.join('/') + '.dto.js')
+    console.log(fp)
     try {
         const dto = require(fp)
         return dto[type]
