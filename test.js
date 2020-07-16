@@ -1,4 +1,4 @@
-const checkDto = require('./checkDto')
+const checkDto = require('./util/checkDto')
 
 const test = () => {
     let testData = {

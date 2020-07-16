@@ -4,7 +4,7 @@
   "description": "dto for js",
   "main": "util/checkDto.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "node test.js"
   },
   "author": "norman",
   "license": "ISC"
