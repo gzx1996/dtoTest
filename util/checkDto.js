@@ -12,8 +12,7 @@ const checkDto = (dto, data, type) => {
 
 const findDtoJSON = (str, type) => {
     const arr = str.split('.');
-    let fp = path.resolve('.', './dto/' + arr.join('/') + '.dto.js')
-    console.log(fp)
+    let fp = path.resolve('.', './dto/' + arr.join('/') + '.dto.js');
     try {
         const dto = require(fp)
         return dto[type]
