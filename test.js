@@ -1,6 +1,7 @@
 const checkDto = require('./util/checkDto')
 
 const test = () => {
+    const dto = require('./dto/user/create.dto').request
     let testData = {
         username: 'test',
         phone: 17855830799,
@@ -15,7 +16,7 @@ const test = () => {
             }
         }
     }
-    checkDto('user.create', testData, 'request');
+    checkDto(dto, testData, 'request');
     console.log(testData)
 }
 test()
