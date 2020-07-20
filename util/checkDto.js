@@ -41,6 +41,7 @@ const checkStr = (M, T, key) => {
             if (typeof T === 'object') { T = JSON.stringify(T); }
             else { T = T.toString(); }
         }
+        if (M.allowNull !== undefined && M.allowNull === false && T.toLowerCase() === 'null') throw new Error(`field '${key}' can not be null`);
         if (M.allowEmpty !== undefined && M.allowEmpty === false && T.length === 0) throw new Error(`field '${key}' can not be an empty string`);
         if (M.maxLength !== undefined && T.length > M.maxLength) throw new Error(`field '${key}' is longer than maxLength(${M.maxLength})`);
         if (M.minLength !== undefined && T.length < M.minLength) throw new Error(`field '${key}' is shorter than minLength(${M.minLength})`);
