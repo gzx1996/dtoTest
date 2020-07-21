@@ -1,5 +1,5 @@
 /**
- * @param {string} dto 定义的dto文件名 'user.create'
+ * @param {string} dto dtoModel
  * @param {object} data 需要校验的入参
  */
 const checkDto = (dto, data) => {
