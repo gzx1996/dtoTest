@@ -25,6 +25,8 @@ const check = (dto, data) => {
         if (M.type.toLowerCase() === 'array') T = checkArray(M, T, k);
         // 判断对象
         if (M.type.toLowerCase() === 'object') T = checkObject(M, T, k);
+        // 判断枚举
+        if (M.type.toLowerCase() === 'enum') T = checkEnum(M, T, k)
         data[k] = T;
     })
     return data;
@@ -129,7 +131,24 @@ const checkObject = (M, T, key) => {
     } catch (e) {
         throw e
     }
+}
 
+/**
+ * @param {Object} M 校验用的model
+ * @param {any} T 待校验的字段
+ * @param {string} key 该字段的名称
+ */
+
+const checkEnum = (M, T, key) => {
+    try {
+        if (M.allowEmpty !== undefined && M.allowEmpty !== false && (T === '')) throw new Error(`field '${key}' can not be empty`);
+        if (M.allowNull !== undefined && M.allowNull === false && T.toLowerCase() === 'null') throw new Error(`field '${key}' can not be null`);
+        if (M.values == undefined) M.values = [];
+        if (!M.values.includes(T)) throw new Error(`field '${key}' must be a value in (${M.values})`);
+        return T
+    } catch (e) {
+        throw e
+    }
 }
 
 module.exports = checkDto
