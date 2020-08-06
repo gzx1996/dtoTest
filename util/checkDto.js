@@ -84,11 +84,10 @@ const checkNumber = (M, T, key) => {
 const checkBoolean = (M, T, key) => {
     try {
         if (typeof T !== 'boolean') {
-            T = Boolean(T);
-            if (T !== true && T !== false) throw new Error(`field '${key}' must be a boolean`);
+            if (T !== 'true' && T !== 'false') throw new Error(`field '${key}' must be a boolean`);
         }
         if (M.enums !== undefined &&  M.enums.length > 0 && !M.enums.includes(T)) throw new Error(`field '${key}' values must be ${M.enums}`);
-        return T
+        return (T === 'true' || T === true) ? true : false
     } catch (e) {
         throw e
     }
