@@ -1,6 +1,6 @@
 {
   "name": "@norman1996/dto4js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "dto for js",
   "main": "util/checkDto.js",
   "scripts": {
