@@ -45,10 +45,10 @@ const checkStr = (M, T, key) => {
         }
         if (M.allowNull !== undefined && M.allowNull === false && T.toLowerCase() === 'null') throw new Error(`field '${key}' can not be null`);
         if (M.allowEmpty !== undefined && M.allowEmpty === false && T.length === 0) throw new Error(`field '${key}' can not be an empty string`);
-        if (M.maxLength !== undefined && T.length > M.maxLength) throw new Error(`field '${key}' should shorter than maxLength(${M.maxLength})`);
-        if (M.minLength !== undefined && T.length < M.minLength) throw new Error(`field '${key}' should longer than minLength(${M.minLength})`);
-        if (M.regexp !== undefined && !M.regexp.test(T)) throw new Error(`field '${key}' regexp verification failed`);
-        if (M.enums !== undefined && M.enums.length > 0 && !M.enums.includes(T)) throw new Error(`field '${key}' values must be ${M.enums}`);
+        if (M.maxLength !== undefined && T && T.length > M.maxLength) throw new Error(`field '${key}' should shorter than maxLength(${M.maxLength})`);
+        if (M.minLength !== undefined && T && T.length < M.minLength) throw new Error(`field '${key}' should longer than minLength(${M.minLength})`);
+        if (M.regexp !== undefined && T && !M.regexp.test(T)) throw new Error(`field '${key}' regexp verification failed`);
+        if (M.enums !== undefined && M.enums.length > 0 && T && !M.enums.includes(T)) throw new Error(`field '${key}' values must be ${M.enums}`);
         return T
     } catch (e) {
         throw e
@@ -67,9 +67,9 @@ const checkNumber = (M, T, key) => {
             T = Number(T);
             if (T.toString() === 'NaN') throw new Error(`field '${key}' must be a number`);
         }
-        if (M.max !== undefined && T > M.max) throw new Error(`field '${key}' should smaller than max(${M.max})`);
-        if (M.min !== undefined && T < M.min) throw new Error(`field '${key}' should bigger than min(${M.min})`);
-        if (M.enums !== undefined && M.enums.length > 0 && !M.enums.includes(T)) throw new Error(`field '${key}' values must be ${M.enums}`);
+        if (M.max !== undefined && T && T > M.max) throw new Error(`field '${key}' should smaller than max(${M.max})`);
+        if (M.min !== undefined && T && T < M.min) throw new Error(`field '${key}' should bigger than min(${M.min})`);
+        if (M.enums !== undefined && M.enums.length > 0 && T && !M.enums.includes(T)) throw new Error(`field '${key}' values must be ${M.enums}`);
         return T
     } catch (e) {
         throw e
@@ -82,6 +82,7 @@ const checkNumber = (M, T, key) => {
  * @param {string} key 该字段的名称
  */
 const checkBoolean = (M, T, key) => {
+    if (T === undefined) return;
     try {
         if (typeof T !== 'boolean') {
             if (T !== 'true' && T !== 'false') throw new Error(`field '${key}' must be a boolean`);
@@ -104,8 +105,8 @@ const checkArray = (M, T, key) => {
             throw new Error(`field '${key}' must be a array`);
         }
         if (M.allowEmpty !== undefined && M.allowEmpty === false && T.length === 0) throw new Error(`field '${key}' can not be an empty array`);
-        if (M.maxLength !== undefined && T.length > M.maxLength) throw new Error(`field '${key}' should shorter than maxLength(${M.maxLength})`);
-        if (M.minLength !== undefined && T.length < M.minLength) throw new Error(`field '${key}' should longer than minLength(${M.minLength})`);
+        if (M.maxLength !== undefined && T.length > 0 && T.length > M.maxLength) throw new Error(`field '${key}' should shorter than maxLength(${M.maxLength})`);
+        if (M.minLength !== undefined && T.length > 0 && T.length < M.minLength) throw new Error(`field '${key}' should longer than minLength(${M.minLength})`);
         return T
     } catch (e) {
         throw e
@@ -143,7 +144,7 @@ const checkEnum = (M, T, key) => {
         if (M.allowEmpty !== undefined && M.allowEmpty !== false && (T === '')) throw new Error(`field '${key}' can not be empty`);
         if (M.allowNull !== undefined && M.allowNull === false && T.toLowerCase() === 'null') throw new Error(`field '${key}' can not be null`);
         if (M.values == undefined) M.values = [];
-        if (!M.values.includes(T)) throw new Error(`field '${key}' must be a value in (${M.values})`);
+        if (T && !M.values.includes(T)) throw new Error(`field '${key}' must be a value in (${M.values})`);
         return T
     } catch (e) {
         throw e
