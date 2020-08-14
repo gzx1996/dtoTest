@@ -2,7 +2,13 @@
 js用于校验dto的模块
 使用方法:
 ```
+安装
 npm install -s @norman1996/dto4js
+使用
+const checkDto  =require('@norman1996/dto4js');
+const Dto = require('./dto') // 你的dto对象，不用也行
+const dto = Dto.user.create
+checkDto(dto.request, req.body); // 第一个参数可以是你自己定义的一个dto对象。你想怎么用都可以，例子在下面有
 ```
 这只是我在开发中的具体需求的实现，可能不符合所有需求场景.
 注意！在这个模块里面，undefined, null, 空（字符串，数组，obj） 是三种不同的东西，都有单独判断的。
